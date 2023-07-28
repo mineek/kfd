@@ -72,6 +72,13 @@ struct ContentView: View {
                         }.frame(minWidth: 0, maxWidth: .infinity)
                     }.listRowBackground(Color.clear)
                 }
+                Section {
+                    HStack {
+                        Button("stage2") {
+                            stage2(kfd)
+                        }.disabled(kfd == 0).frame(minWidth: 0, maxWidth: .infinity)
+                    }.buttonStyle(.bordered)
+                }.listRowBackground(Color.clear)
             }.navigationBarTitle(Text("kfd"), displayMode: .inline)
         }
     }

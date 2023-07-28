@@ -206,4 +206,10 @@ void kclose(u64 kfd)
     kfd_free((struct kfd*)(kfd));
 }
 
+void stage2(u64 kfd)
+{
+    // This is where we'll implement the post-exploit stuff.
+    return;
+}
+
 #endif /* libkfd_h */

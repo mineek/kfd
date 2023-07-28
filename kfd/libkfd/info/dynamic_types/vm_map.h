@@ -79,6 +79,20 @@ const struct vm_map vm_map_versions[] = {
         .holes_list = 0x90,
         .object_size = 0xa8,
     },
+    {
+        .hdr_links_prev = 0x10,
+        .hdr_links_next = 0x08 + 0x10,
+        .min_offset = 0x10 + 0x10,
+        .max_offset = 0x18 + 0x10,
+        .hdr_nentries = 0x30,
+        .hdr_nentries_u64 = 0x30,
+        .hdr_rb_head_store_rbh_root = 0x38,
+        .pmap = 0x40,
+        .hint = 0x90 + 0x08,
+        .hole_hint = 0x90 + 0x10,
+        .holes_list = 0x90 + 0x18,
+        .object_size = 0xc0,
+    },
 };
 
 typedef u64 vm_map_hdr_links_prev_t;

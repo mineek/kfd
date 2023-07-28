@@ -18,6 +18,7 @@ const struct proc proc_versions[] = {
     { .p_list_le_next = 0x0, .p_list_le_prev = 0x8, .p_pid = 0x60, .p_fd_fd_ofiles = 0xf8, .object_size = 0x730 },
     { .p_list_le_next = 0x0, .p_list_le_prev = 0x8, .p_pid = 0x60, .p_fd_fd_ofiles = 0xf8, .object_size = 0x580 },
     { .p_list_le_next = 0x0, .p_list_le_prev = 0x8, .p_pid = 0x60, .p_fd_fd_ofiles = 0xf8, .object_size = 0x778 },
+    { .p_list_le_next = 0x0, .p_list_le_prev = 0x8, .p_pid = 0x60, .p_fd_fd_ofiles = 0xf8, .object_size = 0x730 },
 };
 
 typedef u64 proc_p_list_le_next_t;

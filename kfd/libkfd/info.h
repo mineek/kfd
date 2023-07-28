@@ -176,7 +176,11 @@ void info_init(struct kfd* kfd)
     };
     assert_bsd(setrlimit(RLIMIT_NOFILE, &rlim));
 
-    usize size2 = sizeof(kfd->info.env.osversion);
+    //[info_init]: 🔴 bsd error: kret = -1, errno = 12 (Cannot allocate memory)
+    // ^^^ getting that error on iOS 16.6b1, so I'll just hardcode it to 16.6b1 values for now ;P
+    kfd->info.env.vid = 4;
+    kfd->info.env.ios = true;
+    /*usize size2 = sizeof(kfd->info.env.osversion);
     assert_bsd(sysctlbyname("kern.osversion", &kfd->info.env.osversion, &size2, NULL, 0));
 
     switch (*(u64*)(&kfd->info.env.osversion)) {
@@ -206,7 +210,7 @@ void info_init(struct kfd* kfd)
         default: {
             assert_false("unsupported osversion");
         }
-    }
+    }*/
 
     print_i32(kfd->info.env.pid);
     print_u64(kfd->info.env.tid);

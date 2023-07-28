@@ -14,6 +14,7 @@ const struct uthread uthread_versions[] = {
     { .object_size = 0x200 },
     { .object_size = 0x1b0 },
     { .object_size = 0x1b0 },
+    { .object_size = 0x200 },
 };
 
 #endif /* uthread_h */

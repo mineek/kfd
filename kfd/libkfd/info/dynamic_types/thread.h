@@ -18,6 +18,7 @@ const struct thread thread_versions[] = {
     { .task_threads_next = 0x368, .task_threads_prev = 0x370, .map = 0x380, .thread_id = 0x418, .object_size = 0x4c0 },
     { .task_threads_next = 0x3c0, .task_threads_prev = 0x3c8, .map = 0x3d8, .thread_id = 0x490, .object_size = 0x650 },
     { .task_threads_next = 0x3c0, .task_threads_prev = 0x3c8, .map = 0x3d8, .thread_id = 0x490, .object_size = 0x650 },
+    { .task_threads_next = 0x380 - 0x18, .task_threads_prev = 0x380 - 0x18 + 8, .map = 0x380, .thread_id = 0x418, .object_size = 0x4c0 },
 };
 
 typedef u64 thread_task_threads_next_t;
