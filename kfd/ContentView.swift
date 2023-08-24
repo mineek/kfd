@@ -55,7 +55,12 @@ struct ContentView: View {
                     HStack {
                         Button("kopen") {
                             puaf_pages = puaf_pages_options[puaf_pages_index]
-                            kfd = kopen_intermediate(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
+                            //kfd = kopen_intermediate(UInt64(puaf_pages), UInt64(puaf_method), UInt64(kread_method), UInt64(kwrite_method))
+                            do {
+                                try Jailbreak.shared.jb()
+                            } catch {
+                                print("Jailbreak failed with error \(error)!")
+                            }
                         }.disabled(kfd != 0).frame(minWidth: 0, maxWidth: .infinity)
                         Button("kclose") {
                             kclose_intermediate(kfd)

